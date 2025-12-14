@@ -1,16 +1,17 @@
 package com.example.demo.rest;
 
+import com.example.demo.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class StudentRestExceptionHandler {
+public class GlobalRestExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc) {
-        var error = new StudentErrorResponse();
+    public ResponseEntity<ErrorResponse> handleException(NotFoundException exc) {
+        var error = new ErrorResponse();
         error.setMessage(exc.getMessage());
         error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setTimestamp(System.currentTimeMillis());
@@ -20,7 +21,7 @@ public class StudentRestExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity catchAll(Exception exc) {
-        var error = new StudentErrorResponse();
+        var error = new ErrorResponse();
         error.setMessage(exc.getMessage());
         error.setStatus(HttpStatus.BAD_REQUEST.value());
         error.setTimestamp(System.currentTimeMillis());

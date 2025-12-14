@@ -1,14 +1,14 @@
 package com.example.demo.rest;
 
-public class StudentErrorResponse {
+public class ErrorResponse {
     private int status;
     private String message;
     private long timestamp;
 
-    public StudentErrorResponse() {
+    public ErrorResponse() {
     }
 
-    public StudentErrorResponse(int status, String message, long timestamp) {
+    public ErrorResponse(int status, String message, long timestamp) {
         this.status = status;
         this.message = message;
         this.timestamp = timestamp;
