@@ -1,12 +1,16 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.Employee;
+import com.example.demo.exception.NotFoundException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Component
 public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Autowired
@@ -31,6 +35,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         var query = this.entityManager.createQuery("from Employee where id=:id", Employee.class);
         query.setParameter("id", id);
         return query.getSingleResult();
+
     }
 
     @Override
@@ -41,9 +46,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     @Transactional
-    public void delete(int id) {
-        var query = this.entityManager.createQuery("delete from Employee where id=:id", Employee.class);
+    public int delete(int id) {
+        var query = this.entityManager.createQuery("Delete from Employee e where e.id=:id");
         query.setParameter("id", id);
-        query.executeUpdate();
+        return query.executeUpdate();
+
     }
 }

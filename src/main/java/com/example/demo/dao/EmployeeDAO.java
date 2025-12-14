@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.Employee;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface EmployeeDAO {
 
     void update(Employee employee);
 
-    void delete(int id);
+    int delete(int id);
 }
