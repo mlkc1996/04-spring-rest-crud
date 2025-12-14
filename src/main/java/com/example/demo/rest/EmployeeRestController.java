@@ -1,8 +1,6 @@
 package com.example.demo.rest;
 
-import com.example.demo.dao.EmployeeDAO;
 import com.example.demo.entity.Employee;
-import com.example.demo.service.EmployeeService;
 import com.example.demo.service.IEmployService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

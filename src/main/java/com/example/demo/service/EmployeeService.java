@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.EmployeeDAO;
+import com.example.demo.dao.EmployeeRepository;
 import com.example.demo.entity.Employee;
 import com.example.demo.exception.NotFoundException;
 import jakarta.persistence.NoResultException;
@@ -14,18 +14,19 @@ import java.util.List;
 public class EmployeeService implements IEmployService {
 
     @Autowired
-    private EmployeeDAO employeeDAO;
+    private EmployeeRepository employeeDAO;
 
     public List<Employee> findAll() {
         return this.employeeDAO.findAll();
     }
 
     public Employee findEmployeeById(int id) {
-        try {
-            return this.employeeDAO.findById(id);
-        } catch (NoResultException e) {
-            throw new NotFoundException("Employee id not found - " + id);
+        var employee = this.employeeDAO.findById(id);
+
+        if (employee.isPresent()) {
+            return employee.get();
         }
+        throw new NotFoundException("Employee id not found - " + id);
     }
 
     public Employee updateEmployee(int id, HashMap<String, Object> content) {
@@ -47,23 +48,18 @@ public class EmployeeService implements IEmployService {
             employee.setLastName((String) content.get("lastName"));
         }
 
-        this.employeeDAO.update(employee);
+        this.employeeDAO.save(employee);
 
         return employee;
     }
 
     public Employee createEmployee(HashMap<String, Object> content) {
-
         var employee = new Employee((String) content.get("firstName"), (String) content.get("lastName"), (String) content.get("email"));
-
-        this.employeeDAO.create(employee);
+        this.employeeDAO.save(employee);
         return employee;
     }
 
     public void removeEmployee(int id) {
-        var row = this.employeeDAO.delete(id);
-        if (row < 1) {
-            throw new NotFoundException("Employee id not found - " + id);
-        }
+        this.employeeDAO.deleteById(id);
     }
 }
