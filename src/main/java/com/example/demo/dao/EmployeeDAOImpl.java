@@ -1,16 +1,14 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.Employee;
-import com.example.demo.exception.NotFoundException;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Component
+@Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Autowired
