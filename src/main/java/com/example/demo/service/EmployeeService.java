@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements IEmployService {
 
     @Autowired
     private EmployeeDAO employeeDAO;
@@ -48,7 +48,7 @@ public class EmployeeService {
         }
 
         this.employeeDAO.update(employee);
-        
+
         return employee;
     }
 
